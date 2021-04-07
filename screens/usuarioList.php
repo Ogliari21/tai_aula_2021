@@ -7,7 +7,12 @@ $objBD = new bd();
 //var_dump($objBD->connection());
 
     $result = $objBD->select();
-    echo 'Registro inserido com sucesso!';
+    
+    if (!empty($_GET['id'])){
+        $objBD -> remove($_GET['id']);
+        header("location:UsuarioList.php");
+    }
+
 
 ?>
 <!DOCTYPE html>
@@ -39,6 +44,8 @@ $objBD = new bd();
         <td>".$item->telefone."</td>
         <td>".$item->cpf."</td>
         <td><a href = 'usuarioForm.php?id=". $item->id."'>Editar</a></td>
+        <td><a href='UsuarioList.php?id=" . $item->id 
+        . "' onclick=\"return confirm('Deseja realmente remover o registro?'); \"  >Remover</a> </td>
         </tr>";
     }
     ?>
