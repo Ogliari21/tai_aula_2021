@@ -4,9 +4,16 @@ include '../database/bd.php';
 
 $objBD = new bd();
 
+if (!empty($_POST['valor'])) {
+    $result = $objBD->search($_POST);
+} else {
+    //select * from tb_usuario
+    $result = $objBD->select();
+}
+
 //var_dump($objBD->connection());
 
-    $result = $objBD->select();
+   
     
     if (!empty($_GET['id'])){
         $objBD -> remove($_GET['id']);
@@ -25,6 +32,16 @@ $objBD = new bd();
 </head>
 <body>
     <h4>Listagem de Usuários</h4>
+    <form action="UsuarioList.php" method="post">
+        <input type="text" name="valor" id="">
+
+        <select name="tipo" id="">
+            <option value="nome">Nome</option>
+            <option value="cpf">CPF</option>
+            <option value="telefone">Telefone</option>
+        </select>
+        <input type="submit" value="Buscar">
+    </form>
     <a href = '../index.php'>Voltar</a>
     <a href = './usuarioForm.php'>Cadastrar</a>
 

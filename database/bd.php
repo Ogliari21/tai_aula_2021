@@ -107,6 +107,18 @@ class bd{
         return $stmt;
     }
 
+    public function search($dados)
+    {
+        $conn = $this->connection();
+        $campo = $dados['tipo'];
+
+        $stmt = $conn->prepare("SELECT * FROM tb_usuario WHERE $campo like ?;");
+
+        $stmt->execute(["%" . $dados['valor'] . "%"]);
+
+        return $stmt;
+    }
+
 }
 ?>
 
